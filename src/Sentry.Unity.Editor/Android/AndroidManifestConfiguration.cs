@@ -14,7 +14,7 @@ namespace Sentry.Unity.Editor.Android
     public class AndroidManifestConfiguration : IPostGenerateGradleAndroidProject
     {
         private readonly Func<SentryUnityOptions?> _getOptions;
-        private readonly Func<SentryCliOptions?> _getSentryCliOptions;
+        private readonly Func<SentryEditorOptions?> _getSentryCliOptions;
         private readonly IUnityLoggerInterceptor? _interceptor;
 
         private readonly bool _isDevelopmentBuild;
@@ -25,7 +25,7 @@ namespace Sentry.Unity.Editor.Android
 
         public AndroidManifestConfiguration()
             : this(() => ScriptableSentryUnityOptions.LoadSentryUnityOptions(BuildPipeline.isBuildingPlayer),
-                () => SentryCliOptions.LoadCliOptions(),
+                () => SentryEditorOptions.LoadEditorOptions(),
                 isDevelopmentBuild: EditorUserBuildSettings.development,
                 scriptingImplementation: PlayerSettings.GetScriptingBackend(BuildTargetGroup.Android))
         {
@@ -34,7 +34,7 @@ namespace Sentry.Unity.Editor.Android
         // Testing
         internal AndroidManifestConfiguration(
             Func<SentryUnityOptions?> getOptions,
-            Func<SentryCliOptions?> getSentryCliOptions,
+            Func<SentryEditorOptions?> getSentryCliOptions,
             IUnityLoggerInterceptor? interceptor = null,
             bool isDevelopmentBuild = false,
             ScriptingImplementation scriptingImplementation = ScriptingImplementation.IL2CPP)
